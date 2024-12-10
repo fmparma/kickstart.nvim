@@ -1,7 +1,6 @@
 --  Set nvim-tree
 return {
   'nvim-tree/nvim-tree.lua',
-  version = '*',
   -- lazy = fasle,
   dependencies = {
     'nvim-tree/nvim-web-devicons',
@@ -42,4 +41,3 @@ return {
     }
   end,
 }
-

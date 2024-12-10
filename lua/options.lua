@@ -5,9 +5,10 @@
 
 -- Make line numbers default
 vim.opt.number = true
+
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -70,5 +71,9 @@ vim.opt.scrolloff = 10
 -- supports 24-bit color and will enable this option if it does
 -- (unless explicitly disabled by the user).
 vim.opt.termguicolors = true
+
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- vim: ts=2 sts=2 sw=2 et

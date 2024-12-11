@@ -89,4 +89,7 @@ vim.o.cindent = true
 -- Enable nerd_font
 vim.g.have_nerd_font = true
 
+-- auto-session checkhealt WARNING
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 -- vim: ts=2 sts=2 sw=2 et

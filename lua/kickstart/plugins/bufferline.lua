@@ -12,19 +12,6 @@ return {
       { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
       { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
     },
-    -- opts = {
-    --   options = {
-    --     style_preset = style_preset.minimal,
-    --     offsets = {
-    --       {
-    --         filetype = 'NvimTree',
-    --         text = 'File Explorer',
-    --         highlight = 'Directory',
-    --         text_align = 'left',
-    --       },
-    --     },
-    --   },
-    -- },
 
     config = function()
       local bufferline = require 'bufferline'
@@ -37,10 +24,11 @@ return {
           offsets = {
             {
               filetype = 'NvimTree',
-              text = 'File Explorer',
-              -- text = function()
-              --   return vim.fn.getcwd()
-              -- end,
+              -- text = 'File Explorer',
+              text = function()
+                local cwd = vim.fn.getcwd()
+                return vim.fn.pathshorten(cwd)
+              end,
               highlight = 'Directory',
               text_align = 'left',
               separator = true,

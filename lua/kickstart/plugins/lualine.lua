@@ -23,6 +23,7 @@ return {
       local opts = {
         options = {
           theme = 'auto',
+          -- theme = 'gruvbox',
           globalstatus = vim.o.laststatus == 3,
           disabled_filetypes = { statusline = { 'dashboard', 'alpha', 'ministarter', 'snacks_dashboard' } },
         },
@@ -39,8 +40,25 @@ return {
                 info = 'I',
                 hint = 'H',
               },
+              diagnostics_color = {
+                -- Same values as the general color option can be used here.
+                error = 'DiagnosticError', -- Changes diagnostics' error color.
+                warn = 'DiagnosticWarn', -- Changes diagnostics' warn color.
+                info = 'DiagnosticInfo', -- Changes diagnostics' info color.
+                hint = 'DiagnosticHint', -- Changes diagnostics' hint color.
+              },
+              colored = true, -- Displays diagnostics status in color if set to true.
             },
-            { 'filetype', icon_only = true, separator = '', padding = { left = 1, right = 0 } },
+            {
+              'filetype',
+              colored = true,
+              icon_only = true,
+              -- icon = { align = 'right' }, -- Display filetype icon on the right hand side
+              -- icon =    {'X', align='right'}
+              -- Icon string ^ in table is ignored in filetype component
+              separator = ' ',
+              padding = { left = 1, right = 0 },
+            },
           },
           lualine_x = {
           -- stylua: ignore
@@ -50,6 +68,12 @@ return {
                 added = '+',
                 modified = '~',
                 removed = '-',
+              },
+             diff_color = {
+                -- Same color values as the general color option can be used here.
+                added    = 'LuaLineDiffAdd',    -- Changes the diff's added color
+                modified = 'LuaLineDiffChange', -- Changes the diff's modified color
+                removed  = 'LuaLineDiffDelete', -- Changes the diff's removed color you
               },
               source = function()
                 local gitsigns = vim.b.gitsigns_status_dict
@@ -68,9 +92,25 @@ return {
             { 'location', padding = { left = 0, right = 1 } },
           },
           lualine_z = {
-            function()
-              return ' ' .. os.date '%R'
-            end,
+            -- function()
+            --   return ' ' .. os.date '%R'
+            -- end,
+            {
+              'fileformat',
+              symbols = {
+                unix = '', -- e712
+                dos = '', -- e70f
+                mac = '', -- e711
+              },
+              separator = ' ',
+              padding = { left = 1, right = 0 },
+            },
+            {
+              'encoding',
+              -- Show '[BOM]' when the file has a byte-order mark
+              show_bomb = false,
+              padding = { left = 0, right = 1 },
+            },
           },
         },
       }

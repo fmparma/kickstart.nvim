@@ -10,6 +10,9 @@ vim.opt.number = true
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
 
+-- Color column
+vim.opt.colorcolumn = {80, 100}
+
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
@@ -75,5 +78,12 @@ vim.opt.termguicolors = true
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+-- Indenting
+vim.o.shiftwidth = 4
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+-- Enables automatic C program indenting.
+vim.o.cindent = true
 
 -- vim: ts=2 sts=2 sw=2 et

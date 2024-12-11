@@ -18,9 +18,16 @@ return {
       bufferline.setup {
         options = {
           -- style_preset = bufferline.style_preset.no_italic,
-          -- numbers = function(opts)
-          --   return string.format('%s·%s', raise(opts.id), opts.lower(opts.ordinal))
+          -- numbers = function(ordinal, id, lower, raise)
+          --   return string.format('%s', raise(ordinal))
           -- end,
+          -- separator_style = "thin",
+          -- Whether or not to add the filetype icon highligths
+          color_icons = true,
+          get_element_icon = function(element)
+            local icon, hl = require('nvim-web-devicons').get_icon_by_filetype(element.filetype, { default = false })
+            return icon, hl
+          end,
           offsets = {
             {
               filetype = 'NvimTree',

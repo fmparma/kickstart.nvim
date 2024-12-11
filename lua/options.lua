@@ -86,4 +86,7 @@ vim.o.softtabstop = 4
 -- Enables automatic C program indenting.
 vim.o.cindent = true
 
+-- Enable nerd_font
+vim.g.have_nerd_font = true
+
 -- vim: ts=2 sts=2 sw=2 et

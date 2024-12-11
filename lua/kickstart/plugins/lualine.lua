@@ -52,7 +52,8 @@ return {
             {
               'filetype',
               colored = true,
-              icon_only = true,
+              -- Not only display icon
+              -- icon_only = true,
               -- icon = { align = 'right' }, -- Display filetype icon on the right hand side
               -- icon =    {'X', align='right'}
               -- Icon string ^ in table is ignored in filetype component
@@ -85,6 +86,17 @@ return {
                   }
                 end
               end,
+            },
+            {
+              function()
+                local bufnr = vim.api.nvim_get_current_buf()
+                for _, client in ipairs(vim.lsp.get_clients()) do
+                  if client.attached_buffers[bufnr] then
+                    return ' LSP ~ ' .. client.name
+                  end
+                end
+              end,
+              padding = { left = 0, right = 1 },
             },
           },
           lualine_y = {

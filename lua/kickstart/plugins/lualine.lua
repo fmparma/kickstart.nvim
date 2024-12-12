@@ -35,10 +35,10 @@ return {
             {
               'diagnostics',
               symbols = {
-                error = 'E',
-                warn = 'W',
-                info = 'I',
-                hint = 'H',
+                error = ' E',
+                warn = ' W',
+                info = '󰋼 I',
+                hint = '󰛩 H',
               },
               diagnostics_color = {
                 -- Same values as the general color option can be used here.
@@ -88,11 +88,12 @@ return {
               end,
             },
             {
+              -- LSP client
               function()
                 local bufnr = vim.api.nvim_get_current_buf()
                 for _, client in ipairs(vim.lsp.get_clients()) do
                   if client.attached_buffers[bufnr] then
-                    return ' LSP ~ ' .. client.name
+                    return '   LSP ~ ' .. client.name
                   end
                 end
               end,

@@ -78,7 +78,14 @@ return {
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
           -- Find references for the word under your cursor.
-          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+          map('gr', function()
+            require('telescope.builtin').lsp_references(
+              -- { layout_strategy='vertical' },
+              require('telescope.themes').get_dropdown({
+                winblend = 10,
+                previewer = true,
+              }))
+          end, '[G]oto [R]eferences')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
@@ -233,6 +240,8 @@ return {
             require('lspconfig')[server_name].setup(server)
           end,
         },
+        ensure_installed = { 'lua_ls' },
+        automatic_installation = false,
       }
     end,
   },

@@ -52,6 +52,8 @@ return {
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
+      local action_layout = require 'telescope.actions.layout'
+      local actions = require 'telescope.actions'
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
@@ -61,6 +63,17 @@ return {
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
+        defaults = {
+          mappings = {
+            n = {
+              ['<A-p>'] = action_layout.toggle_preview,
+              ['q'] = actions.close,
+            },
+            i = {
+              ['<A-p>'] = action_layout.toggle_preview,
+            },
+          },
+        },
         -- pickers = {}
         extensions = {
           ['ui-select'] = {
@@ -108,6 +121,9 @@ return {
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+
+      -- Shortcut for search history
+      vim.keymap.set('n', '<leader>fh', builtin.search_history, { desc = '[S]earch [H]istory' })
     end,
   },
 }

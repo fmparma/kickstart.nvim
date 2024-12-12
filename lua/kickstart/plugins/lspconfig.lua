@@ -79,12 +79,17 @@ return {
 
           -- Find references for the word under your cursor.
           map('gr', function()
-            require('telescope.builtin').lsp_references(
-              -- { layout_strategy='vertical' },
-              require('telescope.themes').get_dropdown({
-                winblend = 10,
-                previewer = true,
-              }))
+            require('telescope.builtin').lsp_references(require('telescope.themes').get_cursor {
+              -- winblend = 10,
+              previewer = true,
+              layout_config = {
+                width = 0.8,
+                height = 0.4,
+              },
+              path_display = {
+                'tail',
+              },
+            })
           end, '[G]oto [R]eferences')
 
           -- Jump to the implementation of the word under your cursor.

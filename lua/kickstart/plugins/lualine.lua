@@ -22,8 +22,7 @@ return {
 
       local opts = {
         options = {
-          theme = 'auto',
-          -- theme = 'gruvbox',
+          theme = 'tokyonight',
           globalstatus = vim.o.laststatus == 3,
           disabled_filetypes = { statusline = { 'dashboard', 'alpha', 'ministarter', 'snacks_dashboard' } },
         },

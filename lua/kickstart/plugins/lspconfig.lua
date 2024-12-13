@@ -80,11 +80,12 @@ return {
           -- Find references for the word under your cursor.
           map('gr', function()
             require('telescope.builtin').lsp_references(require('telescope.themes').get_cursor {
-              -- winblend = 10,
+              winblend = 10,
               previewer = true,
               layout_config = {
-                width = 0.8,
+                width = 0.9,
                 height = 0.4,
+                preview_cutoff = 120,
               },
               path_display = {
                 'tail',

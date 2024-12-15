@@ -5,6 +5,21 @@
 --
 -- Use the `dependencies` key to specify the dependencies of a particular plugin
 
+-- Focus cursor to previewer
+local function focus_preview(prompt_bufnr)
+  local action_state = require 'telescope.actions.state'
+  local picker = action_state.get_current_picker(prompt_bufnr)
+  local prompt_win = picker.prompt_win
+  local previewer = picker.previewer
+  local bufnr = previewer.state.bufnr or previewer.state.termopen_bufnr
+  local winid = previewer.state.winid or vim.fn.win_findbuf(bufnr)[1]
+  vim.keymap.set('n', '<Tab>', function()
+    vim.cmd(string.format('noautocmd lua vim.api.nvim_set_current_win(%s)', prompt_win))
+  end, { buffer = bufnr })
+  vim.cmd(string.format('noautocmd lua vim.api.nvim_set_current_win(%s)', winid))
+  -- api.nvim_set_current_win(winid)
+end
+
 return {
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
@@ -68,6 +83,7 @@ return {
             n = {
               ['<A-p>'] = action_layout.toggle_preview,
               ['q'] = actions.close,
+              ['<tab>'] = focus_preview,
             },
             i = {
               ['<A-p>'] = action_layout.toggle_preview,
@@ -95,8 +111,8 @@ return {
       vim.keymap.set('n', '<leader>sw', function()
         builtin.grep_string {
           path_display = {
-           'tail'
-          }
+            'tail',
+          },
         }
       end, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })

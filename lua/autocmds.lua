@@ -13,13 +13,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- Display the number and relative number in the preview
--- vim.api.nivm_create_autocmd('User', {
---   desc = 'Display number in preview of telescope',
---   pattern = 'TelescopePreviewerLoaded',
---   callback = function(buf)
---     local winid = buf.data.winid
---     vim.wo[winid].number = true
---   end,
--- })
+vim.api.nvim_create_autocmd('User', {
+  desc = 'Display number in preview of telescope',
+  pattern = 'TelescopePreviewerLoaded',
+  callback = function(args)
+    -- vim.wo.number = true
+    -- vim.wo.relativenumber = true
+    if args.filetype ~= 'help' then
+      vim.wo.number = true
+    elseif args.bufname:match('*.csv') then
+      vim.wo.wrap = false
+    end
+  end,
+})
 
 -- vim: ts=2 sts=2 sw=2 et

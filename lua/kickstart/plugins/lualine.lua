@@ -2,6 +2,9 @@
 return {
   {
     'nvim-lualine/lualine.nvim',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons'
+    },
     event = 'VeryLazy',
     init = function()
       vim.g.lualine_laststatus = vim.o.laststatus
@@ -18,12 +21,11 @@ return {
       local lualine_require = require 'lualine_require'
       lualine_require.require = require
 
-      vim.o.laststatus = vim.g.lualine_laststatus
-
       local opts = {
         options = {
-          theme = 'tokyonight',
-          globalstatus = vim.o.laststatus == 3,
+          icons_enable = false,
+          theme = 'tokyonight-moon',
+          globalstatus = false,
           disabled_filetypes = { statusline = { 'dashboard', 'alpha', 'ministarter', 'snacks_dashboard' } },
         },
         sections = {

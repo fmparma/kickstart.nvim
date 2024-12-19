@@ -18,6 +18,10 @@ vim.opt.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
+-- set an empty statusline till lualine loads
+vim.o.statusline = ' '
+-- global statusline
+-- vim.opt.laststatus = 3
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.

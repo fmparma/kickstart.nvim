@@ -24,7 +24,7 @@ return {
       local opts = {
         options = {
           icons_enable = false,
-          theme = 'tokyonight-moon',
+          theme = 'auto',
           globalstatus = false,
           disabled_filetypes = { statusline = { 'dashboard', 'alpha', 'ministarter', 'snacks_dashboard' } },
         },

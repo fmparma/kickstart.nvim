@@ -92,9 +92,6 @@ vim.o.softtabstop = 4
 -- Enables automatic C program indenting.
 vim.o.cindent = true
 
--- Enable nerd_font
-vim.g.have_nerd_font = true
-
 -- auto-session checkhealt WARNING
 vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 

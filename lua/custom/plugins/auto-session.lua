@@ -1,8 +1,13 @@
 return {
   'rmagatti/auto-session',
-  lazy = false,
+  -- lazy = false,
   dependencies = {
     'nvim-telescope/telescope.nvim',
+  },
+  cmd = {
+    'SessionSearch',
+    'SessionToggleAutoSave',
+    'SessionSave',
   },
   keys = {
     -- Will use Telescope if installed or a vim.ui.select picker otherwise

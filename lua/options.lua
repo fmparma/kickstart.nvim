@@ -11,7 +11,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Color column
-vim.opt.colorcolumn = {80, 100}
+vim.opt.colorcolumn = { 80, 100 }
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -70,19 +70,6 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
--- Enables 24-bit RGB color in the TUI.
--- Uses "gui" :highlight
--- attributes instead of "cterm" attributes. guifg
--- Requires an ISO-8613-3 compatible terminal.
--- Nvim will automatically attempt to determine if the host terminal
--- supports 24-bit color and will enable this option if it does
--- (unless explicitly disabled by the user).
-vim.opt.termguicolors = true
-
--- disable netrw at the very start of your init.lua
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 -- Indenting
 vim.o.expandtab = true
 vim.o.shiftwidth = 4
@@ -93,6 +80,6 @@ vim.o.softtabstop = 4
 vim.o.cindent = true
 
 -- auto-session checkhealt WARNING
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
 -- vim: ts=2 sts=2 sw=2 et

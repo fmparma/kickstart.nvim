@@ -1,10 +1,10 @@
 if vim.g.vscode then
-	-- VSCode extension
-	-- set clipboard to global clipboard
-	vim.opt.clipboard:append("unnamedplus")
+  -- VSCode extension
+  -- set clipboard to global clipboard
+  vim.opt.clipboard:append 'unnamedplus'
 else
-        -- kickstart extension
---[[
+  -- kickstart extension
+  --[[
 
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
@@ -90,30 +90,44 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+  -- Set <space> as the leader key
+  -- See `:help mapleader`
+  --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+  vim.g.mapleader = ' '
+  vim.g.maplocalleader = ' '
 
--- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = true
+  -- Set to true if you have a Nerd Font installed and selected in the terminal
+  vim.g.have_nerd_font = true
 
--- [[ Setting options ]]
-require 'options'
+  -- disable netrw at the very start of your init.lua
+  vim.g.loaded_netrw = 1
+  vim.g.loaded_netrwPlugin = 1
 
--- [[ Basic Keymaps ]]
-require 'keymaps'
+  -- Enables 24-bit RGB color in the TUI.
+  -- Uses "gui" :highlight
+  -- attributes instead of "cterm" attributes. guifg
+  -- Requires an ISO-8613-3 compatible terminal.
+  -- Nvim will automatically attempt to determine if the host terminal
+  -- supports 24-bit color and will enable this option if it does
+  -- (unless explicitly disabled by the user).
+  vim.opt.termguicolors = true
 
--- [[ Basic Autocommands ]]
-require 'autocmds'
+  -- [[ Setting options ]]
+  require 'options'
 
--- [[ Install `lazy.nvim` plugin manager ]]
-require 'lazy-bootstrap'
+  -- [[ Basic Keymaps ]]
+  require 'keymaps'
 
--- [[ Configure and install plugins ]]
-require 'lazy-plugins'
+  -- [[ Basic Autocommands ]]
+  require 'autocmds'
 
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+  -- [[ Install `lazy.nvim` plugin manager ]]
+  require 'lazy-bootstrap'
+
+  -- [[ Configure and install plugins ]]
+  require 'lazy-plugins'
+
+  -- The line beneath this is called `modeline`. See `:help modeline`
+  -- vim: ts=2 sts=2 sw=2 et
 end
+

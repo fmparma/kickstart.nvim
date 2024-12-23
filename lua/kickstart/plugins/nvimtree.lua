@@ -9,16 +9,22 @@ return {
   config = function()
     require('nvim-tree').setup {
       filters = { dotfiles = true },
-      disable_netrw = true,
+      disable_netrw = false,
+      hijack_netrw = false,
       hijack_cursor = true,
       sync_root_with_cwd = true,
       update_focused_file = {
         enable = true,
-        update_root = false,
+        -- update_root = false,
       },
       view = {
         width = 30,
         preserve_window_proportions = true,
+      },
+      actions = {
+        open_file = {
+          resize_window = false,
+        },
       },
       renderer = {
         root_folder_label = false,

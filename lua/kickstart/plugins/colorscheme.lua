@@ -19,7 +19,9 @@ return {
   },
   -- everforest colorscheme
   {
+    -- everforest writed by vim
     'sainnhe/everforest',
+    enabled = false,
     lazy = false,
     priority = 1000,
     init = function()
@@ -38,6 +40,34 @@ return {
       -- Available values: 'grey background', 'high contrast background', 'bold', 'underline', 'italic'
       -- Default value: 'grey background'
       vim.g.everforest_current_word = 'high contrast background'
+      -- vim.api.nvim_create_autocmd('ColorScheme', {
+      --   group = vim.api.nvim_create_augroup('custom_highlights_everforest', {}),
+      --   pattern = 'everforest',
+      --   callback = function()
+      --     local config = vim.fn['everforest#get_configuration']()
+      --     local palette = vim.fn['everforest#get_palette'](config.background, config.colores_override)
+      --     local set_hl = vim.fn['everforest#highlight']
+      --
+      --     set_hl('CursorLineNr', palette.none, palette.bg_visual_yellow)
+      --   end
+      -- })
+      vim.cmd.colorscheme('everforest')
+    end,
+  },
+  {
+    -- Lua ported everforest
+    "neanias/everforest-nvim",
+    lazy = false,
+    priority = 1000, -- make sure to load this before all the other start plugins
+    -- Optional; default configuration will be used if setup isn't called.
+    init = function()
+      require("everforest").setup({
+        -- Your config here
+        background = 'hard',
+        on_highlights = function(hl, palette)
+          hl.CursorLineNr = { fg = palette.fg, bg = palette.none, sp = palette.red }
+        end,
+      })
       vim.cmd.colorscheme('everforest')
     end,
   },

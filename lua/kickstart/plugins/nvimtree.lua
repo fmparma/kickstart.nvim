@@ -9,13 +9,20 @@ return {
   config = function()
     require('nvim-tree').setup {
       filters = { dotfiles = true },
-      disable_netrw = false,
-      hijack_netrw = false,
+      disable_netrw = true,
+      hijack_netrw = true,
       hijack_cursor = true,
       sync_root_with_cwd = true,
       update_focused_file = {
         enable = true,
         -- update_root = false,
+      },
+      git = {
+        -- if enable, openning file or file-pro will freeze, so disable git.
+        enable = false,
+        -- if enable git, it recommand to set a timeout
+        -- each git process is discarded after a configured timeout.
+        -- timeout = 400 -- ms
       },
       view = {
         width = 30,

@@ -1,7 +1,7 @@
 if vim.g.vscode then
   -- VSCode extension
   -- set clipboard to global clipboard
-  vim.opt.clipboard:append 'unnamedplus'
+  vim.opt.clipboard = 'unnamedplus'
 else
   -- kickstart extension
   --[[
@@ -90,6 +90,14 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
+  if vim.g.neovide then
+    -- if neovide is using
+    vim.g.neovide_refresh_rate = 120
+    vim.g.neovide_refresh_rate_idle = 5
+    vim.g.neovide_remember_window_size = true
+    vim.g.neovide_cursor_vfx_mode = "pixiedust"
+    vim.g.neovide_floating_shadow = false
+  end
   -- Set <space> as the leader key
   -- See `:help mapleader`
   --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)

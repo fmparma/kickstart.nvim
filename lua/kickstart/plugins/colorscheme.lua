@@ -66,7 +66,7 @@ return {
         background = 'hard',
         on_highlights = function(hl, palette)
           hl.CursorLineNr = { fg = palette.fg, bg = palette.none, sp = palette.red }
-          -- hl.IblIndent = { fg = palette.fg, bg = palette.none, sp = palette.green }
+          hl.IblScope = { fg = palette.green, bg = palette.none, sp = palette.green }
         end,
       })
       vim.cmd.colorscheme('everforest')

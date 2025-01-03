@@ -16,7 +16,7 @@ return {
         { section = "startup" },
         {
           section = "terminal",
-          cmd = "ascii-image-converter C:/Users/admin/AppData/Local/nvim-kickstart/image/OP_flag.jfif -C -c",
+          cmd = "ascii-image-converter C:/Users/admin/AppData/Local/nvim-kickstart/image/OIP-C.jfif -C",
           random = 40,
           pane = 2,
           indent = 8,

@@ -16,7 +16,7 @@ return {
         { section = "startup" },
         {
           section = "terminal",
-          cmd = "ascii-image-converter C:/Users/admin/AppData/Local/nvim-kickstart/image/OIP-C.jfif -C",
+          cmd = "ascii-image-converter C:/Users/admin/AppData/Local/nvim-kickstart/image/OIP-C.jfif -C -c",
           random = 40,
           pane = 2,
           indent = 8,
@@ -25,7 +25,12 @@ return {
         },
       },
     },
-    indent = { enabled = false },
+    indent = {
+      enabled = true,
+      scope = {
+        underline = true,
+      },
+    },
     input = { enabled = false },
     notifier = { enabled = false },
     quickfile = { enabled = false },

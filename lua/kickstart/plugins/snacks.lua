@@ -1,5 +1,5 @@
 return {
-  "folke/snacks.nvim",
+  'folke/snacks.nvim',
   priority = 1000,
   lazy = false,
   ---@type snacks.Config
@@ -11,20 +11,20 @@ return {
     dashboard = {
       enabled = true,
       sections = {
-        { section = "header" },
-        { section = "keys", gap = 1, padding = 1 },
-        { section = "startup" },
+        { section = 'header' },
+        { section = 'keys', gap = 1, padding = 1 },
         {
-          section = "terminal",
-          cmd = "ascii-image-converter C:/Users/admin/AppData/Local/nvim-kickstart/image/OP2.jpg -C -c -m **",
-          padding = 1,
-          -- random = 10,
-          ttl = 10,
           pane = 2,
-          indent = 8,
-          height = 80,
-          width = 80,
+          section = 'terminal',
+          cmd = 'ascii-image-converter C:/Users/admin/AppData/Local/nvim-kickstart/image/OP2.jpg -C -c -m **',
+          -- padding = 1,
+          random = 10,
+          -- ttl = 1,
+          indent = 4,
+          height = 35,
+          width = 70,
         },
+        { section = 'startup' },
       },
     },
     indent = {

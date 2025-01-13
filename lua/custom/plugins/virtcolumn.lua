@@ -2,7 +2,8 @@ return {
   -- 'xiyaowong/virtcolumn.nvim',
   'lukas-reineke/virt-column.nvim',
   -- enabled = false,
-  -- event = 'VeryLazy',
+  event = 'VeryLazy',
+  lazy = true,
   -- opts = {},
 
   -- init setting

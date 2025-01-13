@@ -1,5 +1,7 @@
 return {
   "simrat39/symbols-outline.nvim",
+  lazy = true,
+  event = 'VeryLazy',
 
   keys = {
     { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "SymbolsOutline" },

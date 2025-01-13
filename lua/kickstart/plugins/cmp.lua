@@ -2,6 +2,7 @@ return {
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
     -- NOTE: if blink.cmp is used, nvim-cmp shall be disable
+    lazy = true,
     enabled = false,
     event = 'InsertEnter',
     dependencies = {
@@ -119,6 +120,7 @@ return {
   -- Autocompletion : when use blink.cmp
   {
     'saghen/blink.cmp',
+    lazy = true,
     -- Autocompletion has nvim-cmp and blink.cmp
     -- NOTE: if nvim-cmp is used, blink.cmp shall be disable
     -- enabled = false,

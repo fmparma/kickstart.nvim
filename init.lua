@@ -111,6 +111,9 @@ P.S. You can delete this when you're done too. It's your config now! :)
   vim.g.loaded_netrw = 1
   vim.g.loaded_netrwPlugin = 1
 
+  -- sqlite3
+  vim.g.sqlite_clib_path = "E:/Tools/Lua/sqlite-tools-win-x64-3480000/sqlite3.dll"
+
   -- Enables 24-bit RGB color in the TUI.
   -- Uses "gui" :highlight
   -- attributes instead of "cterm" attributes. guifg

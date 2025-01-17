@@ -43,6 +43,8 @@ return {
         end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
+      { 'nvim-telescope/telescope-smart-history.nvim' },
+      { 'kkharji/sqlite.lua' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
@@ -71,6 +73,7 @@ return {
       -- See `:help telescope` and `:help telescope.setup()`
       local action_layout = require 'telescope.actions.layout'
       local actions = require 'telescope.actions'
+      local historypath = vim.fn.stdpath 'data' .. '/databases/telescope_history.sqlite3'
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
@@ -89,7 +92,13 @@ return {
             },
             i = {
               ['<A-p>'] = action_layout.toggle_preview,
+              ['<C-Down>'] = actions.cycle_history_next,
+              ['<C-Up>'] = actions.cycle_history_prev,
             },
+          },
+          history = {
+            path = historypath,
+            limit = 100,
           },
         },
         -- pickers = {}
@@ -103,6 +112,7 @@ return {
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'smart_history')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'

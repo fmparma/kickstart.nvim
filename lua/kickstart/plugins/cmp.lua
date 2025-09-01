@@ -126,7 +126,7 @@ return {
     dependencies = 'rafamadriz/friendly-snippets',
 
     -- use a release tag to download pre-built binaries
-    version = '*',
+    version = '1.*',
     -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
     -- build = 'cargo build --release',
     -- If you use nix, you can build from source using latest nightly rust with:
@@ -151,10 +151,27 @@ return {
         nerd_font_variant = 'mono',
       },
 
+      -- (Default) Only show the documentation popup when manually triggered
+      completion = { documentation = { auto_show = false } },
+
       -- Default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
+      },
+      -- See the fuzzy documentation for more information
+      fuzzy = {
+        implementation = 'prefer_rust_with_warning',
+
+        prebuilt_binaries = {
+          -- Whether or not to automatically download a prebuilt binary from github. If this is set to `false`,
+          -- you will need to manually build the fuzzy binary dependencies by running `cargo build --release`
+          -- Disabled by default when `fuzzy.implementation = 'lua'`
+          download = true,
+
+          -- Ignores mismatched version between the built binary and the current git sha, when building locally
+          ignore_version_mismatch = false,
+        },
       },
     },
     opts_extend = { 'sources.default' },

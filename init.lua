@@ -96,6 +96,8 @@ require 'options'
 -- ============================================================
 require 'keymaps'
 
+require 'qf'
+
 -- ============================================================
 -- SECTION 3: PLUGIN MANAGER INTRO
 -- vim.pack intro, build hooks
@@ -233,7 +235,7 @@ require 'kickstart.plugins.lspconfig'
 -- SECTION 7: FORMATTING
 -- conform.nvim setup and keymap
 -- ============================================================
-require 'kickstart.plugins.conform'
+-- require 'kickstart.plugins.conform'
 
 -- ============================================================
 -- SECTION 8: AUTOCOMPLETE & SNIPPETS
@@ -265,7 +267,6 @@ do
   require 'kickstart.plugins.indent_line'
   require 'kickstart.plugins.lint'
   require 'kickstart.plugins.autopairs'
-  -- require 'kickstart.plugins.neo-tree'
   require 'kickstart.plugins.nvimtree'
   require 'kickstart.plugins.bufferline'
   require 'kickstart.plugins.lualine'

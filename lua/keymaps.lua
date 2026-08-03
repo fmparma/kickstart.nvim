@@ -84,13 +84,15 @@ do
     callback = function(args)
       -- vim.wo.number = true
       -- vim.wo.relativenumber = true
-      if args.filetype ~= 'help' then
+      if args.data.filetype ~= 'help' then
         vim.wo.number = true
-      elseif args.bufname:match('*.csv') then
+      elseif args.data.bufname:match('*.csv') then
         vim.wo.wrap = false
       end
     end,
   })
+
+  vim.keymap.set("n", "<leader>fq", "<cmd>Telescope quickfix<CR>", { desc = "Telescope Quickfix List" })
 
   local map = vim.keymap.set
   --  add your here

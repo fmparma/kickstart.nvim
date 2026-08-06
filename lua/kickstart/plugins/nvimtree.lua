@@ -13,10 +13,10 @@ require('nvim-tree').setup({
     -- hijack_netrw = true,
     -- hijack_cursor = true,
     -- sync_root_with_cwd = true,
-    -- update_focused_file = {
-    --     enable = true,
-    --     -- update_root = false,
-    -- },
+    update_focused_file = {
+        enable = true,
+        -- update_root = false,
+    },
     -- git = {
     --     -- if enable, openning file or file-pro will freeze, so disable git.
     --     enable = false,

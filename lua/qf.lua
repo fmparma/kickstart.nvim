@@ -78,7 +78,7 @@ local function float_preview()
   end)
 
   -- 预览 buffer 设为只读
-  vim.bo[buf].modifiable = false
+  -- vim.bo[buf].modifiable = false
 
   -- 预览窗口关闭时清理
   vim.api.nvim_create_autocmd('WinClosed', {

@@ -206,20 +206,54 @@ vim.api.nvim_create_autocmd('VimEnter', {
     ---@type string[] Plugin modules in priority order.
     local plugins = {
       -- Core editing (load first: highlighting, LSP, keymaps)
-      'kickstart.plugins.treesitter',
-      'kickstart.plugins.lspconfig',
+      -- 'kickstart.plugins.treesitter',
+      -- 'kickstart.plugins.lspconfig',
       'kickstart.plugins.telescope',
-      'kickstart.plugins.gitsigns',
+      -- 'kickstart.plugins.gitsigns',
       'kickstart.plugins.which-key',
       -- UI / editor experience
       'kickstart.plugins.autopairs',
-      'kickstart.plugins.lint',
-      'kickstart.plugins.indent_line',
+      -- 'kickstart.plugins.lint',
+      -- 'kickstart.plugins.indent_line',
+      'kickstart.plugins.nvimtree',
+      -- 'kickstart.plugins.bufferline',
+      -- 'kickstart.plugins.lualine',
+      -- Custom plugins (auto-session, barbecue, cursor, symboloutline, virtcolumn)
+      'custom.plugins',
+    }
+    local i = 0
+    local function load_next()
+      i = i + 1
+      if not plugins[i] then return end
+      local ok, err = pcall(require, plugins[i])
+      if not ok then
+        vim.notify(('Failed to load %s: %s'):format(plugins[i], tostring(err)), vim.log.levels.ERROR)
+      end
+      -- Yield to event loop so Neovim can process input/redraw between loads.
+      vim.schedule(load_next)
+    end
+    vim.schedule(load_next)
+  end,
+})
+
+-- vim.api.nvim_create_autocmd('BufEnter', {
+vim.api.nvim_create_autocmd('BufReadPre', {
+  once = true,
+  callback = function()
+    ---@type string[] Plugin modules in priority order.
+    local plugins = {
+      -- Core editing (load first: highlighting, LSP, keymaps)
+      'kickstart.plugins.treesitter',
+      'kickstart.plugins.lspconfig',
+      -- UI / editor experience
+      'kickstart.plugins.autopairs',
+      -- 'kickstart.plugins.lint',
       'kickstart.plugins.nvimtree',
       'kickstart.plugins.bufferline',
       'kickstart.plugins.lualine',
+      'kickstart.plugins.flash',
       -- Custom plugins (auto-session, barbecue, cursor, symboloutline, virtcolumn)
-      'custom.plugins',
+      -- 'custom.plugins',
     }
     local i = 0
     local function load_next()

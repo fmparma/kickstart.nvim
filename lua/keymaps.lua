@@ -78,19 +78,19 @@ do
   })
 
   -- Display the number and relative number in the preview
-  vim.api.nvim_create_autocmd('User', {
-    desc = 'Display number in preview of telescope',
-    pattern = 'TelescopePreviewerLoaded',
-    callback = function(args)
-      -- vim.wo.number = true
-      -- vim.wo.relativenumber = true
-      if args.data.filetype ~= 'help' then
-        vim.wo.number = true
-      elseif args.data.bufname:match('*.csv') then
-        vim.wo.wrap = false
-      end
-    end,
-  })
+  -- vim.api.nvim_create_autocmd('User', {
+  --   desc = 'Display number in preview of telescope',
+  --   pattern = 'TelescopePreviewerLoaded',
+  --   callback = function(args)
+  --     -- vim.wo.number = true
+  --     -- vim.wo.relativenumber = true
+  --     if args.data.filetype ~= 'help' then
+  --       vim.wo.number = true
+  --     elseif args.data.bufname:match('*.csv') then
+  --       vim.wo.wrap = false
+  --     end
+  --   end,
+  -- })
 
   vim.keymap.set("n", "<leader>fq", "<cmd>Telescope quickfix<CR>", { desc = "Telescope Quickfix List" })
 
@@ -123,5 +123,8 @@ do
   map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
   map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
   map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+
+  -- flash plugin
+  map({"n", "x", "o"}, "s", function() require("flash").jump() end, {desc = "Flash"})
 end
 -- vim: ts=2 sts=2 sw=2 et

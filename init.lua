@@ -174,109 +174,80 @@ end
 local function gh(repo) return 'https://github.com/' .. repo end
 
 -- ============================================================
--- SECTION 4: UI / CORE UX PLUGINS
--- guess-indent, gitsigns, which-key, colorscheme, todo-comments, mini modules
+-- SECTION 4: COLORSHEME (immediate, before first screen)
 -- ============================================================
--- do
--- [[ Installing and Configuring Plugins ]]
---
--- To install a plugin simply call `vim.pack.add` with its git url.
--- This will download the default branch of the plugin, which will usually be `main` or `master`
--- You can also have more advanced specs, which we will talk about later.
---
--- For most plugins its not enough to install them, you also need to call their `.setup()` to start them.
---
--- For example, lets say we want to install `guess-indent.nvim` - a plugin for
--- automatically detecting and setting the indentation.
---
--- We first install it from https://github.com/NMAC427/guess-indent.nvim
--- and then call its `setup()` function to start it with default settings.
--- vim.pack.add { gh 'NMAC427/guess-indent.nvim' }
--- require('guess-indent').setup {}
-
--- [[ Colorscheme ]]
--- You can easily change to a different colorscheme.
--- Change the name of the colorscheme plugin below, and then
--- change the command under that to load whatever the name of that colorscheme is.
---
--- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
--- vim.pack.add { gh 'folke/tokyonight.nvim' }
--- ---@diagnostic disable-next-line: missing-fields
--- require('tokyonight').setup {
---   styles = {
---     comments = { italic = false }, -- Disable italics in comments
---   },
--- }
-
--- Load the colorscheme here.
--- Like many other themes, this one has different styles, and you could load
--- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
--- vim.cmd.colorscheme 'tokyonight-night'
--- end
+-- Colorscheme must load synchronously to avoid a flash of unstyled text.
 require 'kickstart.plugins.colorscheme'
-require 'kickstart.plugins.gitsigns'
--- require 'kickstart.plugins.mini'
-require 'kickstart.plugins.which-key'
--- require 'kickstart.plugins.todo-comments'
 
--- ============================================================
--- SECTION 5: SEARCH & NAVIGATION
--- Telescope setup, keymaps, LSP picker mappings
--- ============================================================
-require 'kickstart.plugins.telescope'
-
--- ============================================================
--- SECTION 6: LSP
--- LSP keymaps, server configuration, Mason tools installations
--- ============================================================
-require 'kickstart.plugins.lspconfig'
-
--- ============================================================
--- SECTION 7: FORMATTING
--- conform.nvim setup and keymap
--- ============================================================
--- require 'kickstart.plugins.conform'
-
--- ============================================================
--- SECTION 8: AUTOCOMPLETE & SNIPPETS
--- blink.cmp and luasnip setup
--- ============================================================
-require 'kickstart.plugins.cmp'
-
--- ============================================================
--- SECTION 9: TREESITTER
--- Parser installation, syntax highlighting, folds, indentation
--- ============================================================
-require 'kickstart.plugins.treesitter'
-
--- ============================================================
--- SECTION 10: OPTIONAL EXAMPLES / NEXT STEPS
--- kickstart.plugins.* examples
--- ============================================================
-do
-  -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
-  -- init.lua. If you want these files, they are in the repository, so you can just download them and
-  -- place them in the correct locations.
-
-  -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart
-  --
-  --  Here are some example plugins that I've included in the Kickstart repository.
-  --  Uncomment any of the lines below to enable them (you will need to restart nvim).
-  --
-  -- require 'kickstart.plugins.debug'
-  require 'kickstart.plugins.indent_line'
-  require 'kickstart.plugins.lint'
-  require 'kickstart.plugins.autopairs'
-  require 'kickstart.plugins.nvimtree'
-  require 'kickstart.plugins.bufferline'
-  require 'kickstart.plugins.lualine'
-  -- require 'kickstart.plugins.snacks'
-
-  -- NOTE: You can add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --
-  --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  require 'custom.plugins'
+-- Placeholder statusline until lualine loads (deferred below).
+-- Avoids an empty/ugly statusline during the brief window before lualine setup.
+vim.g.lualine_laststatus = vim.o.laststatus
+if vim.fn.argc(-1) > 0 then
+  vim.o.statusline = ' '
+else
+  vim.o.laststatus = 0
 end
+
+-- ============================================================
+-- SECTION 5: LAZY-LOADED PLUGINS (after first screen update)
+-- ============================================================
+-- All non-critical plugins are loaded via `vim.schedule` after `VimEnter`.
+-- This defers their loading to AFTER "NVIM STARTED", so they do NOT count
+-- toward startup time (as measured by `--startuptime`).
+--
+-- Plugins are loaded one at a time, yielding to the event loop between each
+-- load (`vim.schedule(load_next)`) to keep Neovim responsive (input/redraw
+-- are processed between loads).
+--
+-- Load order is by priority: core editing first, then UI, then extras.
+vim.api.nvim_create_autocmd('VimEnter', {
+  once = true,
+  callback = function()
+    ---@type string[] Plugin modules in priority order.
+    local plugins = {
+      -- Core editing (load first: highlighting, LSP, keymaps)
+      'kickstart.plugins.treesitter',
+      'kickstart.plugins.lspconfig',
+      'kickstart.plugins.telescope',
+      'kickstart.plugins.gitsigns',
+      'kickstart.plugins.which-key',
+      -- UI / editor experience
+      'kickstart.plugins.autopairs',
+      'kickstart.plugins.lint',
+      'kickstart.plugins.indent_line',
+      'kickstart.plugins.nvimtree',
+      'kickstart.plugins.bufferline',
+      'kickstart.plugins.lualine',
+      -- Custom plugins (auto-session, barbecue, cursor, symboloutline, virtcolumn)
+      'custom.plugins',
+    }
+    local i = 0
+    local function load_next()
+      i = i + 1
+      if not plugins[i] then return end
+      local ok, err = pcall(require, plugins[i])
+      if not ok then
+        vim.notify(('Failed to load %s: %s'):format(plugins[i], tostring(err)), vim.log.levels.ERROR)
+      end
+      -- Yield to event loop so Neovim can process input/redraw between loads.
+      vim.schedule(load_next)
+    end
+    vim.schedule(load_next)
+  end,
+})
+
+-- ============================================================
+-- SECTION 6: AUTOCOMPLETE & SNIPPETS (lazy, on first InsertEnter)
+-- ============================================================
+-- blink.cmp + LuaSnip are only needed when entering insert mode.
+-- Loading them on `InsertEnter` saves ~1s of startup time for normal-mode
+-- browsing (reading files, git diffs, etc.).
+vim.api.nvim_create_autocmd('InsertEnter', {
+  once = true,
+  callback = function()
+    require 'kickstart.plugins.cmp'
+  end,
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

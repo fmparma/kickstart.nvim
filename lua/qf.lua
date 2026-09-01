@@ -153,7 +153,7 @@ local function convert_preview_to_split()
   vim.api.nvim_set_current_win(main_win)
 
   -- 在主窗口创建垂直分屏（可改为 'split' 做水平分屏）
-  vim.cmd('vsplit')
+  -- vim.cmd('vsplit')
   -- 新分屏就是当前窗口
   vim.api.nvim_win_set_buf(0, buf)
   vim.api.nvim_win_set_cursor(0, { lnum, 0 })

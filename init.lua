@@ -213,7 +213,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
       'kickstart.plugins.which-key',
       -- UI / editor experience
       'kickstart.plugins.autopairs',
-      -- 'kickstart.plugins.lint',
+      'kickstart.plugins.lint',
       -- 'kickstart.plugins.indent_line',
       'kickstart.plugins.nvimtree',
       -- 'kickstart.plugins.bufferline',
